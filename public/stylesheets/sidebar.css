@@ -1,0 +1,71 @@
+/*Sidebar*/
+
+#sidebar-wrapper{
+    z-index: 1;
+    position: absolute;
+    width: 250px;
+    height: 100%;
+    overflow-y: hidden;
+    background-color: black;
+    opacity: 0.9;
+    transition: 0.7s;
+}
+
+/*Content Area*/
+
+#page-content-wrapper{
+    width: 100%;
+    position: absolute;
+    padding: 15px;
+    padding-left: 250px;
+    transition: 0.7s;
+}
+
+/*When login is rigth*/
+
+#wrapper.Logged #sidebar-wrapper{
+    width:50px;
+    transition: 0.7s;
+
+}
+#wrapper.Logged #page-content-wrapper{
+    padding-left:50px;
+}
+
+/*Content of SideBar*/
+
+#login{
+    position: absolute;
+    left:50%;
+    top:50%;
+    transform: translate(-50%,-50%);
+}
+#btn-join{
+    border-radius: 0%;
+    width: 100%;
+    height: 30px;
+    line-height: 10px;
+    border: 1px solid white;
+}
+#btn-join:hover{
+    color: white;
+    background-color: black;
+}
+
+#btn-leave a{
+    color: white;
+    position: absolute;
+    top:93%;
+    width: 50px;
+    font-size: 30px;
+}
+#btn-leave a:hover{
+    color: red;
+}
+#title{
+    position: absolute;
+    left:50%;
+    transform: translateX(-50%);
+    color:white;
+    font-size: 50px;
+}

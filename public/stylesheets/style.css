@@ -1,0 +1,35 @@
+#send-msg{
+  width: 70%;
+  left: 50%;
+  top: 50%;
+  transform: translateY(50%);
+  transform: translateX(-50%);
+  position: absolute;
+
+}
+#infoGameArea{
+  position: relative;
+}
+#btn-send, #btn-start{
+  border-radius: 0%;
+  width: 100%;
+  height: 30px;
+  line-height: 10px;
+  border: 1px solid black;
+}
+#txt-msg{
+  width: 100%;
+  border-radius: 0%;
+}
+#image{
+  left: 50%;
+  top: 50%;
+  transform: translateY(50%);
+  transform: translateX(-50%);
+  position: relative;
+}
+#timer{
+  width: 40%;
+  left: 50%;
+  transform: translateX(-50%);
+}
