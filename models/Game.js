@@ -27,21 +27,27 @@ class Game{
     }
 
     SortPhrases(){
-        let index = 0
-        let rn=0
+
+        this.#Phrases = []
         
         return new Promise((resolve,reject)=>{
-            do{
-                rn = Math.floor(Math.random() * (this.numberPlayers));
-                if(rn != index && this.#Phrases.indexOf(rn) == -1){
-                    
-                    this.#Phrases.push(rn)
-                    index++
-                }
-    
-            }while(this.numberPlayers != index)
+            let index = 0
+            let rn=0
 
-            resolve("done");
+        while(this.numberPlayers > this.#Phrases.length){
+
+            rn = Math.floor(Math.random() * this.numberPlayers);
+
+            if(rn != index && this.#Phrases.indexOf(rn) == -1){
+                this.#Phrases.push(rn)
+                index++
+            }else if(index == this.numberPlayers-1 && index == rn && this.#Phrases.indexOf(rn) == -1 ){
+
+                this.#Phrases = []
+                index = 0;
+            }
+        }
+        resolve("OwO)b")
 
         })
     }
@@ -75,7 +81,7 @@ class Game{
         })
     }
 
-    addPhrase(phrase,socket){
+    addPhrase(phrase,socket,type){
 
         return new Promise((resolve, reject)=>{
             Player.findOne(socket).then(player=>{
@@ -83,7 +89,11 @@ class Game{
                 Player.findByNumber(number).then(player=>{
                     let newPlayer = new Player(player.socket)
                     newPlayer.updatePlayer(player)
-                    newPlayer.ask = phrase
+                    if(type == "ask"){
+                        newPlayer.ask = phrase
+                    }else if(type =="answer"){
+                        newPlayer.answer = phrase
+                    }
                     newPlayer.update().then(updated=>{
                         resolve(updated);
                     });

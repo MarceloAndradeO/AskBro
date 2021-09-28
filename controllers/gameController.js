@@ -40,7 +40,7 @@ socketIO.on('connection', socket =>{
     //game EVENTS
 
     socket.on("ask", (message)=>{
-        game.addPhrase(message,socket.id).then((player)=>{
+        game.addPhrase(message,socket.id, "ask").then(()=>{
             
             game.peopleDone();
             socket.emit("done", game)
