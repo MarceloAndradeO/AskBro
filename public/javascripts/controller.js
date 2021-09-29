@@ -219,7 +219,7 @@ class Controller{
 
     updatePlayer(player){
         let listsItem= document.getElementById(player.name);
-        if(player.on ="false"){
+        if(player.on === false ){
             listsItem.setAttribute("class", "list-group-item d-flex justify-content-between align-items-start off")
         }
         listsItem.innerHTML= 

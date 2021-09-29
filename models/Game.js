@@ -62,7 +62,7 @@ class Game{
         this.#Phrases = []
         this.totalDone = 0
         this.currentPlayer = 0;
-        this.removeOffPlayers();
+            this.removeOffPlayers();
     }
     newAdmin(){
         return new Promise((resolve,reject)=>{
@@ -114,13 +114,18 @@ class Game{
         })
     }
     removeOffPlayers(){
-        Player.getAll().then(players=>{
-            players.forEach(player=>{
-                let deleted = new Player(player.socket)
-                deleted.updatePlayer(player)
-                if(deleted.on == false){
-                    deleted.delete();
-                }
+        return new Promise((resolve,reject)=>{
+            Player.getAll().then(players=>{
+                players.forEach(player=>{
+                    let deleted = new Player(player.socket)
+                    deleted.updatePlayer(player)
+                    if(deleted.on == false){
+                        this.reducePlayers();
+                        console.log(this.numberPlayers);
+                        deleted.delete();
+                    }
+                })
+                resolve("OwO)b");
             })
         })
     }

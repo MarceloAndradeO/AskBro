@@ -87,7 +87,6 @@ socketIO.on('connection', socket =>{
     })
     socket.on("finalize", ()=>{
         game.reset()
-        console.log(game)
         socket.emit("finish", game);
         socket.broadcast.emit("finish",game)
     })
