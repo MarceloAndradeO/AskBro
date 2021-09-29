@@ -63,8 +63,9 @@ class Game{
                 this.stage = 0
                 this.#Phrases = []
                 this.totalDone = 0
-                this.currentPlayer = 0;
-                resolve("done");
+                this.currentPlayer = 0
+                this.clearPhrases()
+                resolve("done")
             })
         })
     }
@@ -129,6 +130,17 @@ class Game{
                     }
                 })
                 resolve("OwO)b");
+            })
+        })
+    }
+    clearPhrases(){
+        Player.getAll().then(players=>{
+            players.forEach(player =>{
+                let update = new Player(player.socket)
+                update.updatePlayer(player)
+                update.ask =""
+                update.answer=""
+                update.update();
             })
         })
     }

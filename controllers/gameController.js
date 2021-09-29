@@ -55,17 +55,10 @@ socketIO.on('connection', socket =>{
     })
     socket.on("answer", message=>{
 
-        Player.findOne(socket.id).then(player=>{
-            let answered = new Player(player.id)
-            
-            answered.updatePlayer(player);
-            answered.answer = message
-            game.peopleDone()
-            answered.update().then(player=>{
-                socket.emit("done", game)
-                socket.broadcast.emit("done", game)
-            });
-            
+        game.addPhrase(message,socket.id, "answer").then(()=>{       
+            game.peopleDone();
+            socket.emit("done", game)
+            socket.broadcast.emit("done",game)
         })
 
     })
@@ -109,27 +102,26 @@ socketIO.on('connection', socket =>{
                       //finissh stage 1-------------------------------------------------
                       if(time == 31 || game.totalDone == game.numberPlayers){
                           //START STAGE 2
-                          game.changeState();
-                          time = 0 ;
-                            
-    
-                                socket.emit("stage2", game)
-                                socket.broadcast.emit("stage2", game)
-                                   clearInterval(interval);
-                                   let newInterval = setInterval(()=>{
-                                     socket.emit("timer", time)
-                                     socket.broadcast.emit("timer", time)
-                                      ////////Finish Stage 2
-                                        if(time == 31 || game.totalDone == game.numberPlayers){
-                                            game.changeState();
-                                            time = 0 ;
-                                            socket.emit("stage3", game)
-                                            socket.broadcast.emit("stage3", game)
-                                            clearInterval(newInterval);
-                                         }
-                                        time ++
-                                        },1000)
-                              
+                          game.SortPhrases().then(()=>{
+                            game.changeState();
+                            time = 0 ;
+                            socket.emit("stage2", game)
+                            socket.broadcast.emit("stage2", game)
+                               clearInterval(interval);
+                               let newInterval = setInterval(()=>{
+                                 socket.emit("timer", time)
+                                 socket.broadcast.emit("timer", time)
+                                  ////////Finish Stage 2
+                                    if(time == 31 || game.totalDone == game.numberPlayers){
+                                        game.changeState();
+                                        time = 0 ;
+                                        socket.emit("stage3", game)
+                                        socket.broadcast.emit("stage3", game)
+                                        clearInterval(newInterval);
+                                     }
+                                    time ++
+                                    },1000)
+                          })  
                       }
                   },1000)
             });
