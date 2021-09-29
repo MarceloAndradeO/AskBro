@@ -58,11 +58,15 @@ class Game{
         }
     }
     reset(){
-        this.stage = 0
-        this.#Phrases = []
-        this.totalDone = 0
-        this.currentPlayer = 0;
-            this.removeOffPlayers();
+        return new Promise((resolve,reject)=>{
+            this.removeOffPlayers().then(()=>{
+                this.stage = 0
+                this.#Phrases = []
+                this.totalDone = 0
+                this.currentPlayer = 0;
+                resolve("done");
+            })
+        })
     }
     newAdmin(){
         return new Promise((resolve,reject)=>{
@@ -121,7 +125,6 @@ class Game{
                     deleted.updatePlayer(player)
                     if(deleted.on == false){
                         this.reducePlayers();
-                        console.log(this.numberPlayers);
                         deleted.delete();
                     }
                 })

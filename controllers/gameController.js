@@ -86,9 +86,11 @@ socketIO.on('connection', socket =>{
         })
     })
     socket.on("finalize", ()=>{
-        game.reset()
-        socket.emit("finish", game);
-        socket.broadcast.emit("finish",game)
+        game.reset().then(()=>{
+            console.log(game);
+            socket.emit("finish", game);
+            socket.broadcast.emit("finish",game)
+        })
     })
 
     //when start game// about stages// cahnging states
